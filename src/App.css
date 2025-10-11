@@ -1,0 +1,616 @@
+/* ===================================================================
+   ARQUIVO DE ESTILOS GERAL - App.css
+   ===================================================================
+   Organizado em seções para facilitar a manutenção:
+   1. Estilos Globais e Reset
+   2. Página de Login
+   3. Layout Principal da Aplicação (Correção do Scroll)
+   4. Cabeçalho (Header)
+   5. Área de Conteúdo e Cards (Novas Cores por Status)
+   6. Janela Modal
+   7. Componentes Reutilizáveis (Dropdown, Avisos)
+*/
+
+
+/* --- 1. ESTILOS GLOBAIS E RESET --- */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+/* Garante que padding e bordas não adicionem tamanho extra */
+* {
+    box-sizing: border-box;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #E5E5E5;
+  display: inline;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  overflow-x: hidden; /* Previne scroll horizontal globalmente */
+}
+
+/* Força a herança da fonte para inputs e botões */
+input, button {
+  font-family: inherit;
+}
+
+
+/* --- 2. PÁGINA DE LOGIN --- */
+.login-page {
+    background-color: #f0f8ff;
+    min-height: 100vh;
+    width: 100vw; /* Ocupa 100% da largura da tela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    background-color: #FCFCFC;
+    padding: 30px 40px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-container h1 {
+    font-size: 24px;
+    color: #000000;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+    margin-bottom: 35px;
+}
+
+.login-container label {
+    width: 100%;
+    text-align: left;
+    color: #000000;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #878787;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.forgot-password {
+    text-decoration: none;
+    margin-top: -15px;
+    color: #3b5998;
+    font-size: 12px;
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+}
+
+.login-button {
+    width: 100%;
+    background-color: #3b5998;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-button:hover {
+    background-color: #324a81;
+}
+
+.error-message {
+  color:#c62828;
+}
+
+
+/* --- 3. LAYOUT PRINCIPAL DA APLICAÇÃO --- */
+.principal-page {
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%; 
+}
+
+.content-area {
+    width: 100%;
+    padding: 30px;
+}
+
+
+/* --- 4. CABEÇALHO (HEADER) --- */
+.main-header {
+    background-color: #315D99;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.header-logo {
+    height: 35px;
+    width: auto;
+    filter: brightness(0) invert(1); /* Deixa a logo branca */
+}
+
+.empty-state {
+  color: #000000;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #42699F;
+    border-radius: 25px;
+    padding: 0 20px;
+}
+
+.search-bar input {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 10px;
+    width: 450px;
+    font-size: 14px;
+}
+
+.search-bar input::placeholder {
+    color: #8EA5C5;
+}
+
+.search-bar input:focus {
+    outline: none;
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 50px;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #bdc3c7;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px 5px;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.main-nav a:hover {
+    color: white;
+}
+
+.main-nav a.active {
+    color: white;
+}
+
+.main-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.kebab-menu-container {
+    position: relative; /* Essencial para posicionar o dropdown */
+}
+
+/* Botão do menu no header (reutilizando estilo do card) */
+.kebab-menu-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.kebab-menu-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Posicionamento específico para o dropdown do header */
+.kebab-menu-container .dropdown-menu {
+    top: 120%; /* Um pouco abaixo do ícone */
+    right: 0;
+    z-index: 1000; /* Garante que fique sobre todo o conteúdo */
+}
+
+/* --- 5. ÁREA DE CONTEÚDO E CARDS (Novas Cores por Status) --- */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    border-left: 5px solid #ccc; /* Borda padrão */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    overflow: visible;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+/* Card PENDENTE (Amarelo/Laranja) */
+.card-pending {
+    border-left-color: #f59e0b;
+    background-color: #fffbeb;
+}
+
+/* Card APROVADO (Verde) */
+.card-approved {
+    border-left-color: #10b981;
+    background-color: #f0fdf4;
+}
+
+/* Card REJEITADO (Vermelho) */
+.card-rejected {
+    border-left-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.card-header {
+    padding: 10px 15px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.card-tipo {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    color: #555;
+    margin-top: 4px;
+}
+
+.card-body {
+    padding: 15px;
+    flex-grow: 1;
+}
+
+.card-body p {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.card-body p strong {
+    color: #111;
+}
+
+.card-footer {
+    padding: 10px 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.card-footer a {
+    text-decoration: none;
+    color: #315D99;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+
+/* --- 6. JANELA MODAL --- */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #f0f2f5;
+    padding: 25px 35px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 800px;
+    height: 90vh;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #3b5998;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.modal-header p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    color: #888;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.modal-tabs {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #ddd;
+    flex-shrink: 0;
+}
+
+.modal-tabs a {
+    padding: 10px 0;
+    text-decoration: none;
+    color: #666;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.modal-tabs a.active {
+    color: #3b5998;
+    border-bottom-color: #3b5998;
+}
+
+.modal-body {
+    overflow-y: auto;
+    padding: 15px 5px;
+}
+
+.documentos-content,
+#observacao {
+  color: #000000;
+}
+
+.documentos-content h4,
+.informacoes-content h4 {
+    color: #3b5998;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.documentos-content h4:first-child,
+.informacoes-content h4:first-child {
+    margin-top: 15px;
+}
+
+.textarea-container {
+    position: relative;
+    width: 100%;
+}
+
+.documentos-content textarea {
+    width: 100%;
+    min-height: 80px;
+    margin-top: 10px;
+    padding: 10px 40px 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
+    resize: vertical;
+}
+
+.send-icon-button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-40%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.modal-footer button {
+    min-width: 220px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.btn-rejeitar {
+    background-color: #fde0e0;
+    border: 1px solid #e57373;
+    color: #c62828;
+}
+
+.btn-aprovar {
+    background-color: #e8f5e9;
+    border: 1px solid #81c784;
+    color: #2e7d32;
+}
+
+.informacoes-content p {
+    font-size: 14px;
+    color: #333;
+    margin: 0 0 12px 0;
+}
+
+.informacoes-content p strong {
+    font-weight: 700;
+    color: #111;
+    margin-right: 3px;
+}
+
+.unidade-info-bloco {
+    margin-bottom: 20px;
+}
+
+
+/* --- 7. COMPONENTES REUTILIZÁVEIS (Dropdown, Avisos) --- */
+.card-menu-container {
+    position: relative;
+}
+
+.card-menu-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.card-menu-button:hover,
+.card-menu-button:focus {
+    background-color: #e0e0e0;
+}
+
+.card-menu-button:focus,
+.card-menu-button:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 5px 0;
+    width: 160px;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #f5f5f5;
+}
+
+/* Estilo unificado para os avisos de status no modal */
+.docs-validados-aviso, .docs-rejeitados-aviso {
+    border-radius: 6px;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.docs-validados-aviso {
+    background-color: #e8f5e9;
+    border: 1px solid #81c784;
+    color: #2e7d32;
+}
+
+.docs-rejeitados-aviso {
+    background-color: #fde0e0;
+    border: 1px solid #e57373;
+    color: #c62828;
+}
+
