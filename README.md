@@ -40,13 +40,12 @@ Siga estas instruções para configurar e rodar o projeto em sua máquina local 
 
 1.  **Clone o repositório:**
     ```bash
-    # Substitua pela URL correta do seu repositório
-    git clone [https://github.com/powershare/admin-portal.git](https://github.com/powershare/admin-portal.git)
+    git clone https://github.com/FrnNardes/area-adm.git
     ```
 
 2.  **Navegue até o diretório do projeto:**
     ```bash
-    cd admin-portal
+    cd area-adm
     ```
 
 3.  **Instale as dependências:**
